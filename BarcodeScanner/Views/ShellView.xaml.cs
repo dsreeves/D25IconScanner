@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 using BarcodeScanner.ViewModels;
 
@@ -14,6 +16,7 @@ namespace BarcodeScanner.Views
 		public ShellView()
 		{
 			InitializeComponent();
+			Debug.WriteLine($"Finished Initalizing ShellView on thread [{Thread.CurrentThread.ManagedThreadId}]");
 		}
 	}
 }

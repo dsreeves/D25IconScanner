@@ -10,8 +10,7 @@ using System.Windows.Data;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Threading;
-
-
+using System.Threading;
 
 namespace BarcodeScanner.ViewModels
 {
@@ -21,7 +20,7 @@ namespace BarcodeScanner.ViewModels
 		private DispatcherTimer _clockTimer;
 		private DispatcherTimer _saveDataTimer;
 		private bool isFirstTick = true;
-		private IniParse IniParser = new IniParse("Scanner.ini");
+		private IniParse IniParser = new IniParse("Models/Scanner.ini");
 		
 
 		#endregion
@@ -51,6 +50,8 @@ namespace BarcodeScanner.ViewModels
 			//Save Data Timer
 			_saveDataTimer = new DispatcherTimer() { Interval = TimeSpan.FromSeconds(30) };
 			_saveDataTimer.Tick += (sender, args) => DataTimerTick(DateTime.Now);
+
+			Debug.WriteLine($"ShellVM CTOR on thread [{Thread.CurrentThread.ManagedThreadId}]");
 
 			LoadIniVar();
 		}
