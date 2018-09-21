@@ -1,12 +1,6 @@
 ﻿using Caliburn.Micro;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Media;
-using BarcodeScanner.Views;
 using BarcodeScanner.Models;
-using System.Windows.Data;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Threading;
@@ -21,12 +15,9 @@ namespace BarcodeScanner.ViewModels
 		private DispatcherTimer _saveDataTimer;
 		private bool isFirstTick = true;
 		private IniParse IniParser = new IniParse("Models/Scanner.ini");
-		
-
 		#endregion
 
 		#region Public Properties/Fields
-
 		public string FormName        { get; set; } = "DefaultName";
 		public string CurrentTime     { get; set; } = DateTime.Now.ToString("HH:mm");
 		public string CurrentDate     { get; set; } = DateTime.Now.ToShortDateString();
@@ -56,10 +47,14 @@ namespace BarcodeScanner.ViewModels
 			LoadIniVar();
 		}
 
+		/// <summary>
+		/// Load initilization variables
+		/// </summary>
 		private void LoadIniVar()
 		{
 			
 		}
+
 
 		#region Timer Events
 
