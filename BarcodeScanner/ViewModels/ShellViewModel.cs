@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Threading;
 using System.Threading;
+using NLog;
 
 namespace BarcodeScanner.ViewModels
 {
@@ -14,7 +15,7 @@ namespace BarcodeScanner.ViewModels
 		private DispatcherTimer _clockTimer;
 		private DispatcherTimer _saveDataTimer;
 		private bool isFirstTick = true;
-		private IniParse IniParser = new IniParse("Models/Scanner.ini");
+		private IniParse IniParser;
 		#endregion
 
 		#region Public Properties/Fields
@@ -26,6 +27,7 @@ namespace BarcodeScanner.ViewModels
 		/// Model for all scanner data
 		/// </summary>
 		public Scanner Scanner        { get; set; } = new Scanner();
+		public KPIModel KPI           { get; set; } = new KPIModel();
 
 		#endregion
 
@@ -44,7 +46,7 @@ namespace BarcodeScanner.ViewModels
 
 			Debug.WriteLine($"ShellVM CTOR on thread [{Thread.CurrentThread.ManagedThreadId}]");
 
-			LoadIniVar();
+			//LoadIniVar();
 		}
 
 		/// <summary>
@@ -52,9 +54,8 @@ namespace BarcodeScanner.ViewModels
 		/// </summary>
 		private void LoadIniVar()
 		{
-			
+			IniParser = new IniParse("Models/Scanner.ini");
 		}
-
 
 		#region Timer Events
 

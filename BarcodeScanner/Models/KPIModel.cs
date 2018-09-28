@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace BarcodeScanner.Models
 {
-	class KPIModel : INotifyPropertyChanged
+	public class KPIModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged = (sender, e) => { };
 
@@ -27,37 +27,48 @@ namespace BarcodeScanner.Models
 		public int pUpTimeKPI                  { get; set; } = 0;
 		public int pOEEKPI                     { get; set; } = 0;
 
+		public bool Fix1                       { get; set; } = true;
+		public bool Fix2                       { get; set; } = true;
+		public bool Fix3                       { get; set; } = true;
+		public bool Fix4                       { get; set; } = true;
+		public bool Fix5                       { get; set; } = true;
+		public bool Fix6                       { get; set; } = true;
+
 		#endregion
 
 		#region Backcolor's
 		//Fixture Backcolor Properties (red by default)
-		public SolidColorBrush F1Color         { get; set; } = Brushes.Red;
-		public SolidColorBrush F2Color         { get; set; } = Brushes.Red;
-		public SolidColorBrush F3Color         { get; set; } = Brushes.Red;
-		public SolidColorBrush F4Color         { get; set; } = Brushes.Red;
-		public SolidColorBrush F5Color         { get; set; } = Brushes.Red;
-		public SolidColorBrush F6Color         { get; set; } = Brushes.Red;
+		//public SolidColorBrush F1Color         { get; set; } = Brushes.Red;
+		//public SolidColorBrush F2Color         { get; set; } = Brushes.Red;
+		//public SolidColorBrush F3Color         { get; set; } = Brushes.Red;
+		//public SolidColorBrush F4Color         { get; set; } = Brushes.Red;
+		//public SolidColorBrush F5Color         { get; set; } = Brushes.Red;
+		//public SolidColorBrush F6Color         { get; set; } = Brushes.Red;
 
-		//Current KPI BackColors 
-		public SolidColorBrush cVacKPIColor    { get; set; } = Brushes.Red;
-		public SolidColorBrush cSpacerKPIColor { get; set; } = Brushes.Red;
-		public SolidColorBrush cCupKPIColor    { get; set; } = Brushes.Red;
-		public SolidColorBrush cUpTimePIColor  { get; set; } = Brushes.Red;
-		public SolidColorBrush cOEEKPIColor    { get; set; } = Brushes.Red;
+		////Current KPI BackColors 
+		//public SolidColorBrush cVacKPIColor    { get; set; } = Brushes.Red;
+		//public SolidColorBrush cSpacerKPIColor { get; set; } = Brushes.Red;
+		//public SolidColorBrush cCupKPIColor    { get; set; } = Brushes.Red;
+		//public SolidColorBrush cUpTimePIColor  { get; set; } = Brushes.Red;
+		//public SolidColorBrush cOEEKPIColor    { get; set; } = Brushes.Red;
 
-		//Previous KPI BackColors 
-		public SolidColorBrush pVacKPIColor    { get; set; } = Brushes.Red;
-		public SolidColorBrush pSpacerKPIColor { get; set; } = Brushes.Red;
-		public SolidColorBrush pCupKPIColor    { get; set; } = Brushes.Red;
-		public SolidColorBrush pUpTimePIColor  { get; set; } = Brushes.Red;
-		public SolidColorBrush pOEEKPIColor    { get; set; } = Brushes.Red;
+		////Previous KPI BackColors 
+		//public SolidColorBrush pVacKPIColor    { get; set; } = Brushes.Red;
+		//public SolidColorBrush pSpacerKPIColor { get; set; } = Brushes.Red;
+		//public SolidColorBrush pCupKPIColor    { get; set; } = Brushes.Red;
+		//public SolidColorBrush pUpTimePIColor  { get; set; } = Brushes.Red;
+		//public SolidColorBrush pOEEKPIColor    { get; set; } = Brushes.Red;
 
-		//Backcolors
-		public SolidColorBrush BackgroudColor_Red         = Brushes.Red;
-		public SolidColorBrush BackgroudColor_Green       = Brushes.Green;
-		public SolidColorBrush BackgroudColor_ForestGreen = Brushes.ForestGreen;
+		////Backcolors
+		//public SolidColorBrush BackgroudColor_Red         = Brushes.Red;
+		//public SolidColorBrush BackgroudColor_Green       = Brushes.Green;
+		//public SolidColorBrush BackgroudColor_ForestGreen = Brushes.ForestGreen;
 		#endregion
 
+		public KPIModel()
+		{
+
+		}
 
 
 	}

@@ -14,7 +14,7 @@ namespace BarcodeScanner
 		/// <summary>
 		/// Amount of time(m) until a barcode can be overwritten 
 		/// </summary>
-		private static int TimeRng = 5;
+		//private static int TimeRng = 5;
 
 		private static string LoadConnectionString(string id = "Default")
 		{

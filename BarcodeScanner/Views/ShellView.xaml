@@ -6,8 +6,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:cal="http://www.caliburnproject.org"
-        xmlns:local="clr-namespace:BarcodeScanner.Views"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:custom="clr-namespace:Controls.Panels.Fixtures;assembly=WPFControls"
         mc:Ignorable="d"
         Title="{Binding Path=FormName, Mode=OneWay}" Height="1080" Width="1920" FontFamily="Times New Roman" FontSize="18" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid Background="#FF7A7983" >
@@ -362,144 +362,8 @@
             <!--#endregion-->
 
             <!--#region Fixture-->
+            <custom:Fixture_D25 Padding="20 0 0 0"/>
 
-            <StackPanel Margin="42 0 0 0">
-                <StackPanel.Effect>
-                    <DropShadowEffect ShadowDepth="2"/>
-                </StackPanel.Effect>
-                <Canvas  Width="512" Height="185" Background="LightGray" HorizontalAlignment="Center" >
-                    <Canvas.Effect>
-                        <DropShadowEffect ShadowDepth="3"/>
-                    </Canvas.Effect>
-                    <TextBox x:Name="FixtureHeader" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" 
-                         Background="Transparent" BorderThickness="0" 
-                         Text="Fixture Status" Margin="0 -10 0 0"
-                         FontSize="64" FontWeight="UltraBlack" 
-                         Width="512" TextDecorations="Underline"/>
-                    <StackPanel Orientation="Horizontal" Canvas.Bottom="5" Grid.Row="2" Margin="0 0 0 13">
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Ellipse x:Name="cOne" Fill="{Binding Path=F1Color}" Width="75" Height="75" StrokeThickness="2" >
-                                <Ellipse.Effect>
-                                    <DropShadowEffect Opacity="0.8" BlurRadius="2" ShadowDepth="2"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
-                            <TextBlock x:Name="One" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                        FontSize="56"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Ellipse x:Name="cTwo" Fill="{Binding Path=F2Color}" Width="75" Height="75" StrokeThickness="2" >
-                                <Ellipse.Effect>
-                                    <DropShadowEffect Opacity="0.8" BlurRadius="2" ShadowDepth="2"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
-                            <TextBlock x:Name="Two" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                        FontSize="56"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Ellipse x:Name="cThree" Fill="{Binding Path=F3Color}" Width="75" Height="75" StrokeThickness="2" >
-                                <Ellipse.Effect>
-                                    <DropShadowEffect Opacity="0.8" BlurRadius="2" ShadowDepth="2"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
-                            <TextBlock x:Name="Three" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                        FontSize="56"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Ellipse x:Name="cFour" Fill="{Binding Path=F4Color}" Width="75" Height="75" StrokeThickness="2" >
-                                <Ellipse.Effect>
-                                    <DropShadowEffect Opacity="0.8" BlurRadius="2" ShadowDepth="2"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
-                            <TextBlock x:Name="Four" Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                        FontSize="56"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Ellipse x:Name="cFive" Fill="{Binding Path=F5Color}" Width="75" Height="75" StrokeThickness="2" >
-                                <Ellipse.Effect>
-                                    <DropShadowEffect Opacity="0.8" BlurRadius="2" ShadowDepth="2"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
-                            <TextBlock x:Name="Five" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                        FontSize="56"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Ellipse x:Name="cSix" Fill="{Binding Path=F6Color}" Width="75" Height="75" StrokeThickness="2" >
-                                <Ellipse.Effect>
-                                    <DropShadowEffect Opacity="0.8" BlurRadius="2" ShadowDepth="2"/>
-                                </Ellipse.Effect>
-                            </Ellipse>
-                            <TextBlock x:Name="Six" Text="6" HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                        FontSize="56"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                        </Grid>
-                    </StackPanel>
-                </Canvas>
-            </StackPanel>
             <!--#endregion-->
             
         </StackPanel>
@@ -570,7 +434,7 @@
                       TextOptions.TextFormattingMode="Display" HeadersVisibility="Column"
                       ScrollViewer.VerticalScrollBarVisibility="Disabled"
                       BorderThickness="2 2 2 4" BorderBrush="#FF515151" 
-                      Width="auto" Height="250"
+                      Width="auto" Height="250" 
                       >
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
