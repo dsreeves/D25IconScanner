@@ -1,0 +1,171 @@
+﻿<UserControl x:Class="Controls.Panels.KPI.KPIBoard2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Controls.Panels.KPI"
+             mc:Ignorable="d" 
+             >
+    <StackPanel>
+        <StackPanel.Effect>
+            <DropShadowEffect/>
+        </StackPanel.Effect>
+
+        <Canvas  Width="651" Height="185" Background="LightGray" HorizontalAlignment="Left">
+
+            <TextBox x:Name="cKPIHeader" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" 
+                         Background="Transparent" BorderThickness="0" 
+                         Text="Current Hour KPI's" 
+                         FontSize="60" Padding="0 -8 0 0"
+                         FontWeight="UltraBlack" TextDecorations="Underline"
+                         Width="651"/>
+
+            <StackPanel Orientation="Horizontal" Canvas.Bottom="5" Grid.Row="2">
+
+                <Grid Margin="5 0 5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Width="120" Height="110" Fill="{Binding Path=cVacKPIColor}">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
+                        </Rectangle.Effect>
+
+                    </Rectangle>
+                    <!--Vac % KPI-->
+                    <TextBlock x:Name="cVacKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                                        FontSize="40"
+                                        Padding="0 0 0 5"
+                                        Foreground="White"
+                                        FontFamily="Times New Roman"
+                                        />
+                    <TextBlock  Text="Vacs" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                        FontSize="36"
+                                        Padding="0 0  "
+                                        Foreground="White"
+                                        FontFamily="Times New Roman" TextDecorations="Underline"
+                                        />
+                </Grid>
+                <Grid Margin="5 0 5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Width="120" Height="110" Fill="{Binding Path=cSpacerKPIColor}">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
+                        </Rectangle.Effect>
+
+                    </Rectangle>
+                    <!--Spacer % KPI-->
+                    <TextBlock x:Name="cSpacerKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                                        FontSize="40"
+                                        Padding="0 0 0 5"
+                                        Foreground="White"
+                                        FontFamily="Times New Roman"
+                                        />
+                    <TextBlock Text="Spacers" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                        FontSize="36"
+                                        Padding="0 0  "
+                                        Foreground="White"
+                                        FontFamily="Times New Roman" TextDecorations="Underline"
+                                        />
+                </Grid>
+                <Grid Margin="5 0 5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Width="120" Height="110" Fill="{Binding Path=cCupKPIColor}">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
+                        </Rectangle.Effect>
+
+                    </Rectangle>
+                    <!--Cup % KPI-->
+                    <TextBlock x:Name="cCupKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                                        FontSize="40"
+                                        Padding="0 0 0 5"
+                                        Foreground="White"
+                                        FontFamily="Times New Roman"
+                                        />
+                    <TextBlock Text="Cups" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                        FontSize="36"
+                                        Padding="0 0  "
+                                        Foreground="White"
+                                        FontFamily="Times New Roman" TextDecorations="Underline"
+                                        />
+                </Grid>
+                <Grid Margin="5 0 5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Width="120" Height="110" Fill="{Binding Path=cUpTimePIColor}">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
+                        </Rectangle.Effect>
+
+                    </Rectangle>
+                    <!--UpTime % KPI-->
+                    <TextBlock x:Name="cUpTimeKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                                        FontSize="40"
+                                        Padding="0 0 0 5"
+                                        Foreground="White"
+                                        FontFamily="Times New Roman"
+                                        />
+                    <TextBlock Text="UpTime" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                        FontSize="36"
+                                        Padding="0 0  "
+                                        Foreground="White"
+                                        FontFamily="Times New Roman" TextDecorations="Underline"
+                                        />
+                </Grid>
+                <Grid Margin="5 0 5 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle Width="120" Height="110" Fill="{Binding Path=cOEEKPIColor}">
+                        <Rectangle.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
+                        </Rectangle.Effect>
+
+                    </Rectangle>
+                    <!--OEE % KPI-->
+                    <TextBlock x:Name="cOEEKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                                        FontSize="40"
+                                        Padding="0 0 0 5"
+                                        Foreground="White"
+                                        FontFamily="Times New Roman"
+                                        />
+                    <TextBlock Text="OEE" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                                        FontSize="36"
+                                        Padding="0 0  "
+                                        Foreground="White"
+                                        FontFamily="Times New Roman" TextDecorations="Underline"
+                                        />
+                </Grid>
+
+
+
+            </StackPanel>
+        </Canvas>
+    </StackPanel>
+</UserControl>

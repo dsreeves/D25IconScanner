@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace BarcodeScanner.Models
@@ -27,12 +28,12 @@ namespace BarcodeScanner.Models
 		public int pUpTimeKPI                  { get; set; } = 0;
 		public int pOEEKPI                     { get; set; } = 0;
 
-		public bool Fix1                       { get; set; } = true;
-		public bool Fix2                       { get; set; } = true;
-		public bool Fix3                       { get; set; } = true;
-		public bool Fix4                       { get; set; } = true;
-		public bool Fix5                       { get; set; } = true;
-		public bool Fix6                       { get; set; } = true;
+		public bool Fix1                       { get; set; } = false;
+		public bool Fix2                       { get; set; } = false;
+		public bool Fix3                       { get; set; } = false;
+		public bool Fix4                       { get; set; } = false;
+		public bool Fix5                       { get; set; } = false;
+		public bool Fix6                       { get; set; } = false;
 
 		#endregion
 
@@ -67,7 +68,7 @@ namespace BarcodeScanner.Models
 
 		public KPIModel()
 		{
-
+			Console.WriteLine("KPI model created");
 		}
 
 

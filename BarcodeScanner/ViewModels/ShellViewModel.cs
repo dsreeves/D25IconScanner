@@ -28,7 +28,7 @@ namespace BarcodeScanner.ViewModels
 		/// </summary>
 		public Scanner Scanner        { get; set; } = new Scanner();
 		public KPIModel KPI           { get; set; } = new KPIModel();
-
+		
 		#endregion
 
 		/// <summary>

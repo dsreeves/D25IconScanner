@@ -48,11 +48,23 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\MyObservableCollection.cs" />
+    <Compile Include="Converters\DateConverter.cs" />
+    <Compile Include="Converters\TimeConverter.cs" />
     <Compile Include="Panels\Buttons\Fixture.xaml.cs">
       <DependentUpon>Fixture.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Panels\Fixtures\BarcodeTile.xaml.cs">
+      <DependentUpon>BarcodeTile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Panels\Fixtures\Fixture_D25.xaml.cs">
       <DependentUpon>Fixture_D25.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\KPI\KPIBoard.xaml.cs">
+      <DependentUpon>KPIBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\KPI\KPIBoard2.xaml.cs">
+      <DependentUpon>KPIBoard2.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -81,7 +93,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Panels\Fixtures\BarcodeTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Panels\Fixtures\Fixture_D25.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Panels\KPI\KPIBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Panels\KPI\KPIBoard2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -70,16 +70,19 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Background="LightGray">
+    <Grid Background="LightGray" Width="512" Height="185">
+        <Grid.Effect>
+            <DropShadowEffect/>
+        </Grid.Effect>
         <DockPanel HorizontalAlignment="Left" Height="185" LastChildFill="False" VerticalAlignment="Top" Width="512">
-            <TextBlock TextWrapping="Wrap" Text="Fixture Status" VerticalAlignment="Top" FontSize="64" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
+            <TextBlock TextWrapping="Wrap" Text="Fixture Status" VerticalAlignment="Top" FontSize="64" DockPanel.Dock="Top" HorizontalAlignment="Center" TextDecorations="Underline" FontWeight="Bold"/>
             <StackPanel VerticalAlignment="Center" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,5,5,10">
-                <ToggleButton Content="1" IsChecked="{Binding Path=KPI_Fix1}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
-                <ToggleButton Content="2" IsChecked="{Binding Path=KPI_Fix2}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
-                <ToggleButton Content="3" IsChecked="{Binding Path=KPI_Fix3}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
-                <ToggleButton Content="4" IsChecked="{Binding Path=KPI_Fix4}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
-                <ToggleButton Content="5" IsChecked="{Binding Path=KPI_Fix5}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
-                <ToggleButton Content="6" IsChecked="{Binding Path=KPI_Fix6}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
+                <ToggleButton Content="1" IsChecked="{Binding Path=KPI.Fix1, Mode=TwoWay}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
+                <ToggleButton Content="2" IsChecked="{Binding Path=KPI.Fix2, Mode=TwoWay}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
+                <ToggleButton Content="3" IsChecked="{Binding Path=KPI.Fix3, Mode=TwoWay}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
+                <ToggleButton Content="4" IsChecked="{Binding Path=KPI.Fix4, Mode=TwoWay}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
+                <ToggleButton Content="5" IsChecked="{Binding Path=KPI.Fix5, Mode=TwoWay}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
+                <ToggleButton Content="6" IsChecked="{Binding Path=KPI.Fix6, Mode=TwoWay}" Height="75" VerticalAlignment="Top" Padding="0" FontSize="48" FontFamily="Times New Roman" Style="{DynamicResource ToggleButtonStyle1}" Width="75" Margin="5,0"/>
             </StackPanel>
         </DockPanel>
     </Grid>

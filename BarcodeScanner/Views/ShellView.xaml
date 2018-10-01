@@ -6,374 +6,265 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:cal="http://www.caliburnproject.org"
-        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:custom="clr-namespace:Controls.Panels.Fixtures;assembly=WPFControls"
+        xmlns:custom2="clr-namespace:Controls.Panels.KPI;assembly=WPFControls"
         mc:Ignorable="d"
-        Title="{Binding Path=FormName, Mode=OneWay}" Height="1080" Width="1920" FontFamily="Times New Roman" FontSize="18" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="{Binding Path=FormName, Mode=OneWay}"
+        Height="1080" Width="1920"
+        FontFamily="Times New Roman" FontSize="18" 
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        >
+    <!--#region Resources-->
+    
+    <Window.Resources>
+        
+        <!--Fade In-->
+        <Storyboard x:Key="OnLoaded1">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" >
+                <EasingThicknessKeyFrame KeyTime="0" Value="20,0,0,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.4" Value="5"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="55"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.8" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        
+        <!--Fade Out-->
+        <Storyboard x:Key="OnUnloaded1" >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="55"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+
+    <!--#endregion-->
+    
+    
     <Grid Background="#FF7A7983" >
-        <!--#region Grid Def-->
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="5"/>
         </Grid.RowDefinitions>
-        <!--#endregion-->
-        
-        <!--#region KPI's and Fixture-->
-        <StackPanel Grid.ColumnSpan="4" Orientation="Horizontal" Margin="4 4 2 0">
-            
-            <!--#region Current Kpi's -->
 
-            <StackPanel Margin="0 0 45 0">
-                <StackPanel.Effect>
-                    <DropShadowEffect/>
-                </StackPanel.Effect>
+        <!--Top Row and Gauges-->
+        <StackPanel Grid.Column="1" Grid.Row="1">
 
-                <Canvas  Width="651" Height="185" Background="LightGray" HorizontalAlignment="Left">
+            <!--Top Row-->
+            <Grid >
+                <custom2:KPIBoard HorizontalAlignment="Left" />
+                <custom:Fixture_D25 HorizontalAlignment="Right" />
+            </Grid>
 
-                    <TextBox x:Name="cKPIHeader" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" 
-                         Background="Transparent" BorderThickness="0" 
-                         Text="Current Hour KPI's" 
-                         FontSize="60" Padding="0 -8 0 0"
-                         FontWeight="UltraBlack" TextDecorations="Underline"
-                         Width="651"/>
+            <!--Gauges-->
+            <Grid Margin="0 20" >
+                <StackPanel Orientation="Horizontal">
 
-                    <StackPanel Orientation="Horizontal" Canvas.Bottom="5" Grid.Row="2">
+                    <StackPanel Orientation="Vertical">
 
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                        <!--Downtime mins gauge-->
+                        <StackPanel Margin="50 0 50 50" >
+                            <lvc:Gauge From="0" To="60" Value="{Binding Path=DTimeMins}" 
+                                Width="250" Height="250" 
+                                Uses360Mode="True" 
+                                ToColor="green" FromColor="gold"
+                                HighFontSize="32" LabelsVisibility="Collapsed"/>
+                            <TextBlock Text="Downtime (m)" FontSize="40" 
+                                TextAlignment="Center" VerticalAlignment="Bottom"
+                                />
+                        </StackPanel>
 
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=cVacKPIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
+                        <!--Downtime Hours gauge-->
+                        <StackPanel Margin="50 0 50 0">
+                            <lvc:Gauge From="0" To="24" Value="{Binding Path=DTimeHours}" 
+                                Width="250" Height="250" 
+                                Uses360Mode="True" 
+                                ToColor="green" FromColor="gold"
+                                HighFontSize="32" LabelsVisibility="Collapsed"/>
+                            <TextBlock Text="DownTime (h)" FontSize="40" 
+                                TextAlignment="Center" VerticalAlignment="Bottom"
+                                />
+                        </StackPanel>
 
-                            </Rectangle>
-                            <!--Vac % KPI-->
-                            <TextBlock x:Name="cVacKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock  Text="Vacs" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                    </StackPanel>
 
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=cSpacerKPIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
+                    <StackPanel Orientation="Vertical">
 
-                            </Rectangle>
-                            <!--Spacer % KPI-->
-                            <TextBlock x:Name="cSpacerKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock Text="Spacers" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                        <!--Idle Time Mins gauge-->
+                        <StackPanel Margin="50 0 50 50">
+                            <lvc:Gauge From="0" To="60" Value="{Binding Path=IdleTimeMins}" 
+                                Width="250" Height="250" 
+                                Uses360Mode="True" 
+                                ToColor="green" FromColor="gold"
+                                HighFontSize="32" LabelsVisibility="Collapsed"/>
+                            <TextBlock Text="Idle Time (m)" FontSize="40" 
+                                TextAlignment="Center" VerticalAlignment="Bottom"
+                                />
+                        </StackPanel>
 
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=cCupKPIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
-
-                            </Rectangle>
-                            <!--Cup % KPI-->
-                            <TextBlock x:Name="cCupKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock Text="Cups" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=cUpTimePIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
-
-                            </Rectangle>
-                            <!--UpTime % KPI-->
-                            <TextBlock x:Name="cUpTimeKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock Text="UpTime" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=cOEEKPIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
-
-                            </Rectangle>
-                            <!--OEE % KPI-->
-                            <TextBlock x:Name="cOEEKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock Text="OEE" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-
+                        <!--Oee gauge-->
+                        <StackPanel Margin="50 0 50 0">
+                            <lvc:Gauge From="0" To="100" Value="{Binding Path=OeePercentage}" 
+                                Width="250" Height="250" 
+                                Uses360Mode="True" 
+                                ToColor="green" FromColor="gold"
+                                HighFontSize="32" LabelsVisibility="Collapsed"/>
+                            <TextBlock Text="OEE (%)" FontSize="40" 
+                                TextAlignment="Center" VerticalAlignment="Bottom"
+                                />
+                        </StackPanel>
 
 
                     </StackPanel>
-                </Canvas>
-            </StackPanel>
-            <!--#endregion-->
 
-            <!--#region Previous KPI's-->
-
-            <StackPanel>
-
-                <Canvas  Width="651" Height="185" Background="LightGray"  HorizontalAlignment="Center">
-                    <Canvas.Effect>
-                        <DropShadowEffect/>
-                    </Canvas.Effect>
-
-                    <TextBox x:Name="pKPIHeader" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" 
-                         Background="Transparent" BorderThickness="0" 
-                         Text="Previous Hour KPI's" 
-                         FontSize="60" Padding="0 -8 0 0"
-                         FontWeight="UltraBlack" TextDecorations="Underline"
-                         Width="651"/>
-
-                    <StackPanel Orientation="Horizontal" Canvas.Bottom="5" Grid.Row="2">
-
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=pVacKPIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
-
-                            </Rectangle>
-                            <!--Vac % KPI-->
-                            <TextBlock x:Name="pVacKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock x:Name="rOne" Text="Vacs" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=pSpacerKPIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
-
-                            </Rectangle>
-                            <!--Spacer % KPI-->
-                            <TextBlock x:Name="pSpacerKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock Text="Spacers" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=pCupKPIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
-
-                            </Rectangle>
-                            <!--Cup % KPI-->
-                            <TextBlock x:Name="pCupKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock Text="Cups" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=pUpTimePIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
-
-                            </Rectangle>
-                            <!--UpTime % KPI-->
-                            <TextBlock x:Name="pUpTimeKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock Text="UpTime" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-                        <Grid Margin="5 0 5 0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <Rectangle Width="120" Height="110" Fill="{Binding Path=pOEEKPIColor}">
-                                <Rectangle.Effect>
-                                    <DropShadowEffect BlurRadius="2" ShadowDepth="2"/>
-                                </Rectangle.Effect>
-
-                            </Rectangle>
-                            <!--OEE % KPI-->
-                            <TextBlock x:Name="pOEEKPI" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-                                        FontSize="40"
-                                        Padding="0 0 0 5"
-                                        Foreground="White"
-                                        FontFamily="Times New Roman"
-                                        />
-                            <TextBlock Text="OEE" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                                        FontSize="36"
-                                        Padding="0 0  "
-                                        Foreground="White"
-                                        FontFamily="Times New Roman" TextDecorations="Underline"
-                                        />
-                        </Grid>
-
-
-
+                    <!--Vac gauge-->
+                    <StackPanel Margin="220 0 50 0">
+                        <lvc:Gauge From="0" To="{Binding Path=VacGoal}" Value="{Binding Path=cVacKPI}" 
+                            Width="250" Height="250" 
+                            Uses360Mode="False" 
+                            ToColor="green" FromColor="gold"
+                            HighFontSize="32" LabelsVisibility="Collapsed"/>
+                        <TextBlock Text="Vac Count" FontSize="40" 
+                            TextAlignment="Center" VerticalAlignment="Bottom"
+                            />
                     </StackPanel>
-                </Canvas>
-            </StackPanel>
 
-            <!--#endregion-->
+                    <!--Spacer gauge-->
+                    <StackPanel Margin="50 0 50 0">
+                        <lvc:Gauge From="0" To="{Binding Path=SpacerGoal}" Value="{Binding Path=cSpacerKPI}" 
+                            Width="250" Height="250" 
+                            Uses360Mode="False" 
+                            ToColor="green" FromColor="gold"
+                            HighFontSize="32" LabelsVisibility="Collapsed"/>
+                        <TextBlock Text="Spacer Count" FontSize="40" 
+                            TextAlignment="Center" VerticalAlignment="Bottom"
+                            />
+                    </StackPanel>
 
-            <!--#region Fixture-->
-            <custom:Fixture_D25 Padding="20 0 0 0"/>
+                    <!--cup gauge-->
+                    <StackPanel Margin="50 0 50 0">
+                        <lvc:Gauge From="0" To="{Binding Path=CupGoal}" Value="{Binding Path=cCupKPI}" 
+                            Width="250" Height="250" 
+                            Uses360Mode="False" 
+                            ToColor="green" FromColor="gold"
+                            HighFontSize="32" LabelsVisibility="Collapsed"/>
+                        <TextBlock Text="Cup Count" FontSize="40" 
+                            TextAlignment="Center" VerticalAlignment="Bottom"
+                            />
+                    </StackPanel>
 
-            <!--#endregion-->
-            
+                </StackPanel>
+            </Grid>
+
         </StackPanel>
-        <!--#endregion-->
-        
-        <!--#region Date/Time/Operator-->
 
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" >
-            <!--Time/Date-->
-            <Controls:Tile Title="{Binding Path=CurrentTime}" 
+        <!--DataGrid-->
+        <Grid Grid.Column="1" Grid.Row="1" >
+
+            <!--DataGrid-->
+            <Grid >
+                <!--#region DataGrid -->
+
+                <DockPanel 
+                    HorizontalAlignment="right" VerticalAlignment="Bottom" 
+                    Width="1150" Height="494">
+
+                    <!--Rescently Scanned-->
+
+
+                    <Controls:Tile Width="200" Height="40" Background="#FF006AD4" 
+                            Margin="0 0 8 0" Title="Previously Scanned" HorizontalTitleAlignment="Center"
+                            TitleFontSize="22" 
+                            DockPanel.Dock="Top" HorizontalAlignment="Left">
+                        <Controls:Tile.Effect>
+                            <DropShadowEffect BlurRadius="3" ShadowDepth="3"/>
+                        </Controls:Tile.Effect>
+                    </Controls:Tile>
+
+                    <TextBox x:Name="LastScanned" Width="400" Height="40"
+                             DockPanel.Dock="top"
+                             BorderThickness="1"  BorderBrush="#FF3B67EC">
+                        <TextBox.Effect>
+                            <DropShadowEffect BlurRadius="5" ShadowDepth="3"/>
+                        </TextBox.Effect>
+                    </TextBox>
+
+
+                    <!--DataGrid-->
+                    <DataGrid x:Name="Scanner_DataGrid" 
+                      DockPanel.Dock="Bottom" HorizontalAlignment="Right"
+                      Margin="0 0 2 2"
+                      AlternationCount="2"
+                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" 
+                      IsReadOnly="True" FontSize="27" FontWeight="Medium" 
+                      TextOptions.TextFormattingMode="Display" HeadersVisibility="Column"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                      BorderThickness="2 2 2 4" BorderBrush="#FF515151" Width="325" Height="190" 
+                       
+                      >
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Background" Value="LimeGreen"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="BorderThickness" Value="1 1 2 2"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="Padding" Value="2 0"/>
+                            </Style>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="BorderThickness" Value="1 1 1 1"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                                <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                            </Style>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <Style.Triggers>
+                                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                        <Setter Property="Background" Value="#FFECA2A2"></Setter>
+                                    </Trigger>
+                                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                        <Setter Property="Background" Value="GhostWhite"></Setter>
+                                    </Trigger>
+
+                                </Style.Triggers>
+                            </Style>
+
+                        </DataGrid.Resources>
+
+
+                    </DataGrid>
+                </DockPanel>
+
+
+
+
+                <!--#endregion-->
+            </Grid>
+
+        </Grid>
+
+        <!--Date/Time/Operator-->
+        <Grid Grid.Column="1" Grid.Row="1" >
+            <!--Date/Time/Operator-->
+            <Grid >
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" >
+
+                    <!--Time/Date-->
+                    <Controls:Tile Title="{Binding Path=CurrentTime}" 
                        TitleFontSize="26"
                        HorizontalTitleAlignment="Center" 
                        VerticalTitleAlignment="Top"
@@ -386,8 +277,8 @@
                        Background="#FF006AD4"
                        VerticalAlignment="Bottom"/>
 
-            <!--Operator-->
-            <Controls:Tile Title="{Binding Path=Scanner.Operator}" 
+                    <!--Operator-->
+                    <Controls:Tile Title="{Binding Path=Scanner.Operator}" 
                        TitleFontSize="30"
                        HorizontalTitleAlignment="Center" 
                        VerticalTitleAlignment="Center"
@@ -396,178 +287,16 @@
                        BorderThickness="2" BorderBrush="#FF515151"
                        Background="#FF006AD4"
                        VerticalAlignment="Bottom"/>
-        </StackPanel>
-        <!--#endregion-->
 
-        <!--#region DataGrid -->
-
-        <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                    HorizontalAlignment="right" VerticalAlignment="Bottom" Margin="0 0 2 2"
-                    Orientation="Vertical">
-
-            
-
-            <!--Rescently Scanned-->
-            <StackPanel Orientation="Horizontal" Margin="0 0 5 7">
-                <Controls:Tile Width="200" Height="40" Background="#FF006AD4" 
-                               Margin="0 0 8 0" Title="Previously Scanned" HorizontalTitleAlignment="Center"
-                               TitleFontSize="22">
-                    <Controls:Tile.Effect>
-                        <DropShadowEffect BlurRadius="3" ShadowDepth="3"/>
-                    </Controls:Tile.Effect>
-                </Controls:Tile>
-                <TextBox x:Name="Scanner_LastScanned" Width="400" Height="40" HorizontalAlignment="Left" BorderThickness="1"  BorderBrush="#FF3B67EC" >
-                    <TextBox.Effect>
-                        <DropShadowEffect BlurRadius="5" ShadowDepth="3"/>
-                    </TextBox.Effect>
-                </TextBox>
-            </StackPanel>
-
-
-            <!--DataGrid-->
-            <DataGrid x:Name="Scanner_DataGrid" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2"
-                      HorizontalAlignment="right" VerticalAlignment="Bottom"
-                      Margin="0 0 2 2"
-                      AlternationCount="2"
-                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserSortColumns="False" 
-                      IsReadOnly="True" FontSize="27" FontWeight="Medium" 
-                      TextOptions.TextFormattingMode="Display" HeadersVisibility="Column"
-                      ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                      BorderThickness="2 2 2 4" BorderBrush="#FF515151" 
-                      Width="auto" Height="250" 
-                      >
-                <DataGrid.Resources>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Background" Value="LimeGreen"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="BorderThickness" Value="1 1 2 2"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
-                    </Style>
-                    <Style TargetType="{x:Type DataGridCell}">
-                        <Setter Property="BorderThickness" Value="1 1 1 1"/>
-                        <Setter Property="BorderBrush" Value="Black"/>
-                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
-                    </Style>
-                    <Style TargetType="{x:Type DataGridRow}">
-                        <Style.Triggers>
-                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                                <Setter Property="Background" Value="#FFECA2A2"></Setter>
-                            </Trigger>
-                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                <Setter Property="Background" Value="GhostWhite"></Setter>
-                            </Trigger>
-
-                        </Style.Triggers>
-                    </Style>
-
-                </DataGrid.Resources>
-
-
-            </DataGrid>
-        </StackPanel>
-
-
-
-
-        <!--#endregion-->
-
-        <!--#region KPI Gauges-->
-        
-        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" HorizontalAlignment="right">
-
-            <!--#region 360 Gauges-->
-            
-            <StackPanel Orientation="Vertical" Margin="0 75 0 0">
-                <!--Downtime mins gauge-->
-                <StackPanel Margin="50 0 50 50" >
-                    <lvc:Gauge From="0" To="60" Value="{Binding Path=DTimeMins}" 
-                            Width="250" Height="250" 
-                            Uses360Mode="True" 
-                            ToColor="green" FromColor="gold"
-                            HighFontSize="32" LabelsVisibility="Collapsed"/>
-                    <TextBlock Text="Downtime (m)" FontSize="40" 
-                            TextAlignment="Center" VerticalAlignment="Bottom"
-                            />
                 </StackPanel>
-                <!--Downtime Hours gauge-->
-                <StackPanel Margin="50 0 50 0">
-                    <lvc:Gauge From="0" To="24" Value="{Binding Path=DTimeHours}" 
-                            Width="250" Height="250" 
-                            Uses360Mode="True" 
-                            ToColor="green" FromColor="gold"
-                            HighFontSize="32" LabelsVisibility="Collapsed"/>
-                    <TextBlock Text="DownTime (h)" FontSize="40" 
-                            TextAlignment="Center" VerticalAlignment="Bottom"
-                            />
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Margin="0 75 150 0">
-                <!--Idle Time Mins gauge-->
-                <StackPanel Margin="50 0 50 50">
-                    <lvc:Gauge From="0" To="60" Value="{Binding Path=IdleTimeMins}" 
-                            Width="250" Height="250" 
-                            Uses360Mode="True" 
-                            ToColor="green" FromColor="gold"
-                            HighFontSize="32" LabelsVisibility="Collapsed"/>
-                    <TextBlock Text="Idle Time (m)" FontSize="40" 
-                            TextAlignment="Center" VerticalAlignment="Bottom"
-                            />
-                </StackPanel>
-                <!--Oee gauge-->
-                <StackPanel Margin="50 0 50 0">
-                    <lvc:Gauge From="0" To="100" Value="{Binding Path=OeePercentage}" 
-                            Width="250" Height="250" 
-                            Uses360Mode="True" 
-                            ToColor="green" FromColor="gold"
-                            HighFontSize="32" LabelsVisibility="Collapsed"/>
-                    <TextBlock Text="OEE (%)" FontSize="40" 
-                            TextAlignment="Center" VerticalAlignment="Bottom"
-                            />
-                </StackPanel>
-            </StackPanel>
-            <!--#endregion-->
-            
-            <!--#region 180 Gauges-->
-            
-            <!--Vac gauge-->
-            <StackPanel Margin="50 75 50 0">
-                <lvc:Gauge From="0" To="{Binding Path=VacGoal}" Value="{Binding Path=cVacKPI}" 
-                            Width="250" Height="250" 
-                            Uses360Mode="False" 
-                            ToColor="green" FromColor="gold"
-                            HighFontSize="32" LabelsVisibility="Collapsed"/>
-                <TextBlock Text="Vac Count" FontSize="40" 
-                            TextAlignment="Center" VerticalAlignment="Bottom"
-                            />
-            </StackPanel>
-            <!--Spacer gauge-->
-            <StackPanel Margin="50 75 50 0">
-                <lvc:Gauge From="0" To="{Binding Path=SpacerGoal}" Value="{Binding Path=cSpacerKPI}" 
-                            Width="250" Height="250" 
-                            Uses360Mode="False" 
-                            ToColor="green" FromColor="gold"
-                            HighFontSize="32" LabelsVisibility="Collapsed"/>
-                <TextBlock Text="Spacer Count" FontSize="40" 
-                            TextAlignment="Center" VerticalAlignment="Bottom"
-                            />
-            </StackPanel>
-            <!--cup gauge-->
-            <StackPanel Margin="50 75 50 0">
-                <lvc:Gauge From="0" To="{Binding Path=CupGoal}" Value="{Binding Path=cCupKPI}" 
-                            Width="250" Height="250" 
-                            Uses360Mode="False" 
-                            ToColor="green" FromColor="gold"
-                            HighFontSize="32" LabelsVisibility="Collapsed"/>
-                <TextBlock Text="Cup Count" FontSize="40" 
-                            TextAlignment="Center" VerticalAlignment="Bottom"
-                            />
-            </StackPanel>
-        <!--#endregion-->
-            
-        </StackPanel>
+
+            </Grid>
+
+        </Grid>
 
 
-        <!--#endregion-->
-        
+
+
+
     </Grid>
 </Window>
