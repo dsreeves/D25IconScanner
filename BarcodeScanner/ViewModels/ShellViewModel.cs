@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.ComponentModel;
 using System.Windows.Threading;
 using System.Threading;
-using NLog;
+
 
 namespace BarcodeScanner.ViewModels
 {

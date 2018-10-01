@@ -63,9 +63,9 @@
             <StackPanel Height="Auto" VerticalAlignment="Bottom" Margin="3,85,0,0" DockPanel.Dock="Left" Orientation="Horizontal">
                 <StackPanel Orientation="Vertical">
                     <TextBlock x:Name="_Date" TextWrapping="Wrap" Text="{Binding Date, Converter={StaticResource DateConverter}, ElementName=userControl}" VerticalAlignment="Top" HorizontalAlignment="Left" IsEnabled="False" Style="{DynamicResource TextBlockStyle2}" TextAlignment="Left" Padding="2,0,0,0"/>
-                    <TextBlock x:Name="_Time" TextWrapping="Wrap" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=Date}" HorizontalAlignment="Left" Style="{DynamicResource TextBlockStyle2}" Padding="2,0,0,0" Margin="0,-3,0,0" FontSize="20" Height="28.8" Text="{Binding Time, Converter={StaticResource TimeConverter}, ElementName=userControl}"><Run Text="24:24"/><LineBreak/><Run/><LineBreak/><Run/></TextBlock>
+                    <TextBlock x:Name="_Time" TextWrapping="Wrap" VerticalAlignment="Top" Width="{Binding ActualWidth, ElementName=Date}" HorizontalAlignment="Left" Style="{DynamicResource TextBlockStyle2}" Padding="2,0,0,0" Margin="0,-3,0,0" FontSize="20" Height="28.8" Text="{Binding Time, Converter={StaticResource TimeConverter}, ElementName=userControl}"/>
                 </StackPanel>
-                <TextBlock x:Name="Op" TextWrapping="Wrap" Text="{Binding OperatorName, ElementName=userControl}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource TextBlockStyle2}" Padding="0,-5,0,0" Margin="40,0,0,0" FontSize="20"/>
+                <TextBlock x:Name="Op" TextWrapping="Wrap" Text="{Binding OperatorName, ElementName=userControl}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource TextBlockStyle2}" Padding="0,0,0,0" Margin="40,0,0,0" FontSize="20"/>
             </StackPanel>
         </DockPanel>
     </Grid>

@@ -18,7 +18,7 @@ namespace Controls.Collections
 	/// "Controls.LoadedSotryBoard = (Storyboard)FindResource("OnLoaded1");"
 	/// 
 	/// </summary>
-	public class MyObservableCollection : ObservableCollection<FrameworkElement>
+	public class MyObservableCollection<T> : ObservableCollection<FrameworkElement>
 	{
 		private Storyboard unloadedStoryboard;
 

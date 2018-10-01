@@ -1,23 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Controls.Panels.Fixtures
 {
 	public partial class BarcodeTile : UserControl
 	{
+		private static DateTime dt = DateTime.Now;
 		public BarcodeTile()
 		{
 			InitializeComponent();
@@ -32,7 +21,8 @@ namespace Controls.Panels.Fixtures
 			set { SetValue(FixtureNumberProperty, value); }
 		}
 		public static readonly DependencyProperty FixtureNumberProperty =
-			DependencyProperty.Register("FixtureNumber", typeof(int), typeof(BarcodeTile), null);
+			DependencyProperty.Register("FixtureNumber", typeof(int), typeof(BarcodeTile), new PropertyMetadata(0));
+
 
 
 		public DateTime Date
@@ -40,8 +30,10 @@ namespace Controls.Panels.Fixtures
 			get { return (DateTime)GetValue(DateProperty); }
 			set { SetValue(DateProperty, value); }
 		}
+
 		public static readonly DependencyProperty DateProperty =
-			DependencyProperty.Register("Date", typeof(DateTime), typeof(BarcodeTile), null);
+			DependencyProperty.Register("Date", typeof(DateTime), typeof(BarcodeTile), new PropertyMetadata(dt));
+
 
 
 		public DateTime Time
@@ -52,7 +44,7 @@ namespace Controls.Panels.Fixtures
 		}
 
 		public static readonly DependencyProperty TimeProperty =
-			DependencyProperty.Register("Time", typeof(DateTime), typeof(BarcodeTile), null);
+			DependencyProperty.Register("Time", typeof(DateTime), typeof(BarcodeTile), new PropertyMetadata(dt));
 
 
 		public string SerialNumber
@@ -62,7 +54,7 @@ namespace Controls.Panels.Fixtures
 		}
 
 		public static readonly DependencyProperty SerialNumberProperty =
-			DependencyProperty.Register("SerialNumber", typeof(string), typeof(BarcodeTile), null);
+			DependencyProperty.Register("SerialNumber", typeof(string), typeof(BarcodeTile), new PropertyMetadata(""));
 
 
 
@@ -73,9 +65,7 @@ namespace Controls.Panels.Fixtures
 		}
 
 		public static readonly DependencyProperty OperatorNameProperty =
-			DependencyProperty.Register("OperatorName", typeof(string), typeof(BarcodeTile), null);
-
-
+			DependencyProperty.Register("OperatorName", typeof(string), typeof(BarcodeTile), new PropertyMetadata(""));
 
 
 		#endregion

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using Controls.Collections;
+using Controls.Panels.Fixtures;
+using CoreScanner;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Xml;
-using CoreScanner;
 
 namespace BarcodeScanner.Models
 {
@@ -18,7 +18,8 @@ namespace BarcodeScanner.Models
 		/// <summary>
 		/// VM binding for datagrid
 		/// </summary>
-		public ObservableCollection<Barcode> DataGrid { get; set; } = new ObservableCollection<Barcode>();
+		public MyObservableCollection<BarcodeTile> DataGrid { get; set; } = new MyObservableCollection<BarcodeTile>();
+		
 
 		/// <summary>
 		/// VM binding for last scanned barcode
@@ -48,7 +49,7 @@ namespace BarcodeScanner.Models
 		private bool ScanDisabled = false;
 
 		public bool sConnected    = false;
-		public string _DateTime { get; set; }
+		public DateTime _DateTime { get; set; }
 		public string _RawIN    { get; set; }
 		public enum ExecCodes
 		{
@@ -135,7 +136,7 @@ namespace BarcodeScanner.Models
 		{
 			Log($"Scanner Constructor run on thread ");
 			uiSyncContext = SynchronizationContext.Current;
-			iniScanner();
+			//iniScanner();
 			ScannerDebug();
 		}
 
@@ -145,13 +146,20 @@ namespace BarcodeScanner.Models
 		[Conditional("DEBUG")]
 		private void ScannerDebug()
 		{
-			DataGrid.Add(new Barcode("Serial#123456", "12/12/12 12:12", "Operator", 1));
-			DataGrid.Add(new Barcode("Serial#123456", "12/12/12 12:12", "Operator", 2));
-			DataGrid.Add(new Barcode("Serial#123456", "12/12/12 12:12", "Operator", 3));
-			DataGrid = new ObservableCollection<Barcode>(DataGrid.Reverse());
-			DataGrid.Insert(0, new Barcode("Serial#123456", "12/12/12 12:12", "Operator", 4));
-			DataGrid.RemoveAt(2);
-			DataGrid.Insert(0, new Barcode("Serial#123456", "12/12/12 12:12", "Operator", 2));
+			Log("BarcodeTiles... ");
+			DataGrid.Add(new BarcodeTile() { OperatorName = "TestOpName", FixtureNumber = 1, Date = DateTime.Now, Time = DateTime.Now, SerialNumber = "TestSerialNumber123" });
+			DataGrid.Add(new BarcodeTile() { OperatorName = "TestOpName2", FixtureNumber = 2, Date = DateTime.Now, Time = DateTime.Now, SerialNumber = "TestSerialNumber123" });
+			DataGrid.Add(new BarcodeTile() { OperatorName = "TestOpName3", FixtureNumber = 3, Date = DateTime.Now, Time = DateTime.Now, SerialNumber = "TestSerialNumber123" });
+			DataGrid.Add(new BarcodeTile() { OperatorName = "TestOpName4", FixtureNumber = 4, Date = DateTime.Now, Time = DateTime.Now, SerialNumber = "TestSerialNumber123" });
+			DataGrid.Add(new BarcodeTile() { OperatorName = "TestOpName5", FixtureNumber = 5, Date = DateTime.Now, Time = DateTime.Now, SerialNumber = "TestSerialNumber123" });
+			Log("Finished BarcodeTiles ");
+			//DataGrid.Add(new Barcode("Serial#123456", DateTime.Now, "Operator", 1));
+			//DataGrid.Add(new Barcode("Serial#123456", DateTime.Now, "Operator", 2));
+			//DataGrid.Add(new Barcode("Serial#123456", DateTime.Now, "Operator", 3));
+			//DataGrid = new ObservableCollection<Barcode>(DataGrid.Reverse());
+			//DataGrid.Insert(0, new Barcode("Serial#123456", DateTime.Now, "Operator", 4));
+			//DataGrid.RemoveAt(2);
+			//DataGrid.Insert(0, new Barcode("Serial#123456", DateTime.Now, "Operator", 2));
 		}
 
 		/// <summary>
@@ -174,116 +182,116 @@ namespace BarcodeScanner.Models
 		/// </summary>
 		private void CreateNewBarcodeEvent()
 		{
-			//Barcode scan event
-			cCoreScannerClass.BarcodeEvent += new _ICoreScannerEvents_BarcodeEventEventHandler(OnBarcodeEvent);
-			// Method for Subscribe events
-			string inXML = "<inArgs>" +
-								"<cmdArgs>" +
-									"<arg-int>1</arg-int>" +            // Number of events you want to subscribe
-									"<arg-int>1</arg-int>" +            // Comma separated event IDs
-								"</cmdArgs>" +
-							"</inArgs>";
-			cCoreScannerClass.ExecCommand(1001, ref inXML, out outXML, out status);
-			Log("Created event on thread ");
-			Thread.Sleep(200);
+			////Barcode scan event
+			//cCoreScannerClass.BarcodeEvent += new _ICoreScannerEvents_BarcodeEventEventHandler(OnBarcodeEvent);
+			//// Method for Subscribe events
+			//string inXML = "<inArgs>" +
+			//					"<cmdArgs>" +
+			//						"<arg-int>1</arg-int>" +            // Number of events you want to subscribe
+			//						"<arg-int>1</arg-int>" +            // Comma separated event IDs
+			//					"</cmdArgs>" +
+			//				"</inArgs>";
+			//cCoreScannerClass.ExecCommand(1001, ref inXML, out outXML, out status);
+			//Log("Created event on thread ");
+			//Thread.Sleep(200);
 		}
 
 		/// <summary>
 		/// Barcode scan event
 		/// </summary>
-		private void OnBarcodeEvent(short eventType, ref string pscanData)
-		{
-			Log("Barcode Event Fired on thread ");
-			_DateTime = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
-			string dat = pscanData;
+		//private void OnBarcodeEvent(short eventType, ref string pscanData)
+		//{
+		//	Log("Barcode Event Fired on thread ");
+		//	_DateTime = DateTime.Now;
+		//	string dat = pscanData;
 
-			if (dat != "")
-			{
-				//Decodes the xml and stores the value in _RawIN 
-				DecodeXml(dat);
-				Debug.WriteLine($"Barcode => {_RawIN}");
+		//	if (dat != "")
+		//	{
+		//		//Decodes the xml and stores the value in _RawIN 
+		//		DecodeXml(dat);
+		//		Debug.WriteLine($"Barcode => {_RawIN}");
 
-				switch (opReady)
-				{
-					//Operator is scanned in 
-					case true:
+		//		switch (opReady)
+		//		{
+		//			//Operator is scanned in 
+		//			case true:
 
-						//Decode scan type
-						switch (_RawIN[0])
-						{
+		//				//Decode scan type
+		//				switch (_RawIN[0])
+		//				{
 
-							//Operator sign in
-							case '#':
-								InvokeBeep(ExecCodes._3HighS);
-								ChangeLed(ExecCodes._RedLEDOff);
-								ChangeLed(ExecCodes._GreenLEDOn);
+		//					//Operator sign in
+		//					case '#':
+		//						InvokeBeep(ExecCodes._3HighS);
+		//						ChangeLed(ExecCodes._RedLEDOff);
+		//						ChangeLed(ExecCodes._GreenLEDOn);
 
-								//Post to UI thread
-								uiSyncContext.Post((s) => 
-								{
-									Operator = _RawIN.Substring(1);
-									opReady = true;
-								}, null);
-								break;
-
-
-							//Part Scanned
-							default:
-								InvokeBeep(ExecCodes._1HighL);
-								ChangeLed(ExecCodes._RedLEDOff);
-								var bc = new Barcode(_RawIN, _DateTime, Operator, Fixture);
-
-								//Check for duplicate serial scan from same operator 
-								foreach (var i in DataGrid)
-								{
-									//If not same operator then update DB/Datagrid
-									if (i.Serial == _RawIN && i.Operator != Operator)
-									{
-										//Post to UI thread
-										uiSyncContext.Post((s) =>
-										{
-											SQLite.UpdateBarcode(bc);
-											DataGrid.RemoveAt(DataGrid.IndexOf(i));
-											DataGrid.Insert(0, bc);
-
-										}, null);
-										return;
-									}
-									//Same operator scanned barcode twice
-									else if (i.Serial == _RawIN && i.Operator == Operator)
-									{
-										//Post to UI thread
-										uiSyncContext.Post((s) =>
-										{
-											SQLite.DeleteBarcode(bc);
-											DataGrid.RemoveAt(DataGrid.IndexOf(i));
-										}, null);
-										return;
-									}
-								}
-
-								//Add new barcode to Datagrid 
-								uiSyncContext.Post((s) =>
-								{
-									if (SQLite.WriteBarcode(bc))
-									{
-										DataGrid.Insert(0, bc);
-									}
-								}, null);
-
-								break;
-						}
-						break;
+		//						//Post to UI thread
+		//						uiSyncContext.Post((s) => 
+		//						{
+		//							Operator = _RawIN.Substring(1);
+		//							opReady = true;
+		//						}, null);
+		//						break;
 
 
-					//No operator is currently scanned in
-					case false:
-						InvokeBeep(ExecCodes._3LowL);
-						ChangeLed(ExecCodes._RedLEDOn);
-						break;
-				}
-			}
-		}
+		//					//Part Scanned
+		//					default:
+		//						InvokeBeep(ExecCodes._1HighL);
+		//						ChangeLed(ExecCodes._RedLEDOff);
+		//						var bc = new Barcode(_RawIN, _DateTime, Operator, Fixture);
+
+		//						//Check for duplicate serial scan from same operator 
+		//						foreach (var i in DataGrid)
+		//						{
+		//							//If not same operator then update DB/Datagrid
+		//							if ((BarcodeTile)i.SerialNumber == _RawIN && i.OperatorName != Operator)
+		//							{
+		//								//Post to UI thread
+		//								uiSyncContext.Post((s) =>
+		//								{
+		//									SQLite.UpdateBarcode(bc);
+		//									DataGrid.RemoveAt(DataGrid.IndexOf(i));
+		//									DataGrid.Insert(0, bc);
+
+		//								}, null);
+		//								return;
+		//							}
+		//							//Same operator scanned barcode twice
+		//							else if (i.SerialNumber == _RawIN && i.OperatorName == Operator)
+		//							{
+		//								//Post to UI thread
+		//								uiSyncContext.Post((s) =>
+		//								{
+		//									SQLite.DeleteBarcode(bc);
+		//									DataGrid.RemoveAt(DataGrid.IndexOf(i));
+		//								}, null);
+		//								return;
+		//							}
+		//						}
+
+		//						//Add new barcode to Datagrid 
+		//						uiSyncContext.Post((s) =>
+		//						{
+		//							if (SQLite.WriteBarcode(bc))
+		//							{
+		//								DataGrid.Insert(0, bc);
+		//							}
+		//						}, null);
+
+		//						break;
+		//				}
+		//				break;
+
+
+		//			//No operator is currently scanned in
+		//			case false:
+		//				InvokeBeep(ExecCodes._3LowL);
+		//				ChangeLed(ExecCodes._RedLEDOn);
+		//				break;
+		//		}
+		//	}
+		//}
 
 		/// <summary>
 		/// Checks for active connection with barcode scanner in SNAPI mode
@@ -445,18 +453,20 @@ namespace BarcodeScanner.Models
 	/// </summary>
 	public class Barcode 
 	{
-		public string Operator   { get;  set; } = "";
-		public string Serial     { get;  set; } = "";
-		public int Fixture       { get;  set; } = 1;
-		public string DateTime   { get;  set; } = "";
+		public string OperatorName     { get;  set; } = "";
+		public string SerialNumber     { get;  set; } = "";
+		public int FixtureNumber       { get;  set; } = 1;
+		public DateTime Date           { get;  set; }
+		public DateTime Time           { get;  set; } 
 
-		public Barcode(string ser, string dt, string op, int fix)
+		public Barcode(string ser, DateTime dt, string op, int fix)
 		{
 			Debug.WriteLine($"Creating Barcode class instance on thread [{Thread.CurrentThread.ManagedThreadId}]");
-			DateTime = dt;
-			Serial = ser;
-			Operator = op;
-			Fixture = fix;
+			Date = dt;
+			Time = dt;
+			SerialNumber = ser;
+			OperatorName = op;
+			FixtureNumber = fix;
 		}
 	}
 }
